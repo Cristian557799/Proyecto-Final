@@ -36,10 +36,10 @@
                             <a class="nav-link active" href="/index.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/index.php?controller=pista&action=index">Instalaciones</a>
+                            <a class="nav-link" href="/pistas">Instalaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/index.php?controller=reserva&action=misReservas">Mis Reservas</a>
+                            <a class="nav-link" href="/reservas">Mis Reservas</a>
                         </li>
                     </ul>
                     

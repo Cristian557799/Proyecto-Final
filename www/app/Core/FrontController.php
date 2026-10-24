@@ -5,6 +5,8 @@ namespace Com\Daw2\Core;
 use Com\Daw2\Libraries\Permiso;
 use Com\Daw2\Controllers\ErroresController;
 use Com\Daw2\Controllers\InicioController;
+use Com\Daw2\Controllers\PistaController;
+use Com\Daw2\Controllers\ReservaController;
 use Steampixel\Route;
 use Throwable;
 
@@ -31,6 +33,16 @@ class FrontController {
             Route::add('/demo-proveedores', function () {
                 $controlador = new InicioController();
                 $controlador->demo();
+            }, 'get');
+
+            Route::add('/pistas', function () {
+                $controlador = new PistaController();
+                $controlador->index();
+            }, 'get');
+
+            Route::add('/reservas', function () {
+                $controlador = new ReservaController();
+                $controlador->misReservas();
             }, 'get');
 
             // ---------------- CONFIGURACIÓN DE USUARIO ----------------
