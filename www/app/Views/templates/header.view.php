@@ -31,13 +31,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/index.php">Inicio</a>
+                        <a class="nav-link active" href="/inicio">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.php?controller=pista&action=index">Ver Pistas</a>
+                        <a class="nav-link" href="/pistas">Ver Pistas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.php?controller=reserva&action=misReservas">Mis Reservas</a>
+                        <a class="nav-link" href="/reservas">Mis Reservas</a>
                     </li>
                 </ul>
                 

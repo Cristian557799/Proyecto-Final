@@ -29,20 +29,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <!-- Enlaces de Navegación -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/index.php">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/pistas">Instalaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/reservas">Mis Reservas</a>
-                        </li>
-                    </ul>
-                    
+                <!-- Contenedor derecho (sin los enlaces de navegación centrales) -->
+                <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
                     <!-- Zona de Autenticación / Acceso de Usuarios -->
                     <ul class="navbar-nav align-items-lg-center gap-2">
                         <?php if (isset($_SESSION['usuario'])): ?>
