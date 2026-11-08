@@ -22,4 +22,22 @@ class ReservaModel extends BaseDBModel {
 
         return $stmt->fetchAll();
     }
+
+    /**
+     * Insertamos una nueva reserva en la base de datos
+     */
+    public function insertarReserva(array $data): bool {
+        $sql = "INSERT INTO reservas (usuario_id, pista_id, horario_id, fecha_reserva, precio_total, estado, created_at) 
+                VALUES (:usuario_id, :pista_id, :horario_id, :fecha_reserva, :precio_total, :estado, NOW())";
+        
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            'usuario_id' => $data['usuario_id'],
+            'pista_id' => $data['pista_id'],
+            'horario_id' => $data['horario_id'],
+            'fecha_reserva' => $data['fecha_reserva'],
+            'precio_total' => $data['precio_total'],
+            'estado' => $data['estado']
+        ]);
+    }
 }

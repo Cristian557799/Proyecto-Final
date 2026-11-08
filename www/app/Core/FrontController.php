@@ -2,11 +2,13 @@
 
 namespace Com\Daw2\Core;
 
-use Com\Daw2\Libraries\Permiso;
+use Com\Daw2\Libraries\Permiso;         
 use Com\Daw2\Controllers\ErroresController;
 use Com\Daw2\Controllers\InicioController;
 use Com\Daw2\Controllers\PistaController;
 use Com\Daw2\Controllers\ReservaController;
+use Com\Daw2\Controllers\AuthController;
+use Com\Daw2\Controllers\HomeController;
 use Steampixel\Route;
 use Throwable;
 
@@ -43,6 +45,71 @@ class FrontController {
             Route::add('/reservas', function () {
                 $controlador = new ReservaController();
                 $controlador->misReservas();
+            }, 'get');
+
+            //Ruta para el inicio de sesión
+            Route::add('/login', function () {
+            $controlador = new AuthController();
+            $controlador->login();
+            }, ['get', 'post']);
+            
+            //Ruta para cerrar sesión
+            Route::add('/logout', function () {
+            $controlador = new AuthController();
+            $controlador->logout();
+            }, 'get');
+
+            //Ruta para el registro de usuarios
+            Route::add('/registro', function () {
+            $controlador = new AuthController();
+            $controlador->registro();
+            }, ['get', 'post']);
+
+            //Ruta para la página de tarifas y horarios
+            Route::add('/tarifas', function () {
+            $controlador = new HomeController();
+            $controlador->tarifas();
+            }, 'get');
+
+            // Ruta para la página de Contacto y Ayuda
+            Route::add('/contacto', function () {
+            $controlador = new HomeController();
+            $controlador->contacto();
+            }, 'get');
+
+            // Ruta para la página de realizar una reserva
+            Route::add('/reservar', function () {
+            $controlador = new ReservaController();
+            $controlador->reservar();
+            }, ['get', 'post']);
+
+            //Ruta para la página de gestión de trabajadores
+            Route::add('/trabajadores', function () {
+            $controlador = new HomeController();
+            $controlador->trabajadores();
+            }, 'get');
+
+            //Ruta para poder mostrar la vista de edición de un trabajador
+            Route::add('/trabajadores/editar', function () {
+            $controlador = new HomeController();
+            $controlador->editarTrabajador();
+            }, 'get');
+
+            //Ruta para poder procesar la actualización de un trabajador
+            Route::add('/trabajadores/actualizar', function () {
+            $controlador = new HomeController();
+            $controlador->actualizarTrabajador();
+            }, 'post');
+
+            Route::add('/trabajadores/nuevo', function () {
+            $controlador = new HomeController();
+            $controlador->nuevoTrabajador();
+            }, 'get');
+
+            //Ruta para la página de ver proveedores
+            Route::add('/proveedores', function () {
+            $controlador = new HomeController();
+            $controlador->proveedores();
             }, 'get');
 
             // ---------------- CONFIGURACIÓN DE USUARIO ----------------

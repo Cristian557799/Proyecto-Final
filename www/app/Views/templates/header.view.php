@@ -44,10 +44,10 @@
                 <!-- Opciones de Usuario / Autenticación -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm me-2" href="/index.php?controller=auth&action=login">Iniciar Sesión</a>
+                        <a class="btn btn-outline-light btn-sm me-2" href="/login">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-success btn-sm" href="/index.php?controller=auth&action=registro">Registrarse</a>
+                        <a class="btn btn-success btn-sm" href="/registro">Registrarse</a>
                     </li>
                 </ul>
             </div>

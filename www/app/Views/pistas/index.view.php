@@ -16,7 +16,6 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
                         <div class="position-relative">
-                            <!-- Si tienes una columna de imagen en la BD, úsala; si no, ponemos una por defecto -->
                             <img src="<?= $pista['imagen'] ?? 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=600&q=80' ?>" 
                                  class="card-img-top object-fit-cover" style="height: 220px;" alt="<?= htmlspecialchars($pista['nombre'] ?? 'Pista deportiva') ?>">
                             
@@ -31,7 +30,9 @@
 
                             <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top">
                                 <span class="fw-bold text-success fs-5"><?= number_format((float)($pista['precio_hora'] ?? 15), 2) ?> € / h</span>
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 rounded-pill fw-semibold">
+                                
+                                <!-- Enlace con el ID de la pista en el parámetro GET -->
+                                <a href="/reservar?pista=<?= $pista['id'] ?? $pista['id_pista'] ?>" class="btn btn-outline-primary btn-sm px-3 rounded-pill fw-semibold">
                                     <i class="bi bi-calendar-check me-1"></i> Reservar
                                 </a>
                             </div>
