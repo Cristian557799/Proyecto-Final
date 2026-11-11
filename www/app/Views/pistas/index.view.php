@@ -13,10 +13,31 @@
     <div class="row g-4">
         <?php if (!empty($instalaciones)): ?>
             <?php foreach ($instalaciones as $pista): ?>
+                <?php 
+                    // Asignación inteligente de imagen robusta según el nombre del deporte
+                    $nombrePista = strtolower($pista['nombre'] ?? '');
+                    
+                    if (str_contains($nombrePista, 'pádel') || str_contains($nombrePista, 'padel')) {
+                        // Imagen clara de una pista de pádel con cristales
+                        $imagenPista = 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=600&q=80';
+                    } elseif (str_contains($nombrePista, 'tenis')) {
+                        // Imagen de pista de tenis con red
+                        $imagenPista = 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=600&q=80';
+                    } elseif (str_contains($nombrePista, 'fútbol') || str_contains($nombrePista, 'futbol') || str_contains($nombrePista, 'campo')) {
+                        // Imagen de campo de fútbol de césped artificial
+                        $imagenPista = 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80';
+                    } elseif (str_contains($nombrePista, 'baloncesto') || str_contains($nombrePista, 'basket') || str_contains($nombrePista, 'polideportiva')) {
+                        // Imagen de cancha de baloncesto cubierta
+                        $imagenPista = 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80';
+                    } else {
+                        // Imagen por defecto genérica deportiva
+                        $imagenPista = $pista['imagen'] ?? 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80';
+                    }
+                ?>
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
                         <div class="position-relative">
-                            <img src="<?= $pista['imagen'] ?? 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=600&q=80' ?>" 
+                            <img src="<?= $imagenPista ?>" 
                                  class="card-img-top object-fit-cover" style="height: 220px;" alt="<?= htmlspecialchars($pista['nombre'] ?? 'Pista deportiva') ?>">
                             
                             <span class="position-absolute top-0 end-0 m-3 badge bg-success shadow-sm">

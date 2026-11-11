@@ -13,6 +13,7 @@ class TrabajadorModel extends BaseDBModel {
     public function getAllTrabajadores() : array {
         $sql = "SELECT id, nombre, email, rol, turno, estado FROM trabajadores ORDER BY nombre ASC";
         $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
@@ -43,5 +44,30 @@ class TrabajadorModel extends BaseDBModel {
             'turno' => $data['turno'],
             'estado' => $data['estado']
         ]);
+    }
+
+    /**
+     * Insertamos un nuevo trabajador en la base de datos
+     */
+    public function insertTrabajador(array $data) : bool {
+        $sql = "INSERT INTO trabajadores (nombre, email, rol, turno, estado, created_at) 
+                VALUES (:nombre, :email, :rol, :turno, :estado, NOW())";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            'nombre' => $data['nombre'],
+            'email' => $data['email'],
+            'rol' => $data['rol'],
+            'turno' => $data['turno'],
+            'estado' => $data['estado']
+        ]);
+    }
+
+    /**
+     * Eliminamos un trabajador de la base de datos por su ID
+     */
+    public function deleteTrabajador(int $id) : bool {
+        $sql = "DELETE FROM trabajadores WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $id]);
     }
 }

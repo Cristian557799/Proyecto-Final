@@ -40,4 +40,13 @@ class ReservaModel extends BaseDBModel {
             'estado' => $data['estado']
         ]);
     }
+
+    /**
+     * Cambiamos el estado de una reserva a cancelada
+     */
+    public function cancelarReserva(int $idReserva) : bool {
+        $sql = "UPDATE reservas SET estado = 'cancelada' WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $idReserva]);
+    }
 }

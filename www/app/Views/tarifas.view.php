@@ -27,7 +27,7 @@
                     <h3 class="h4 fw-bold text-dark mb-2">Pista de Pádel</h3>
                     <p class="text-muted small mb-4">Pistas acristaladas de última generación con iluminación LED optimizada.</p>
                     
-                    <div class="mb-4 bg-light p-3 rounded-3">
+                    <div class="mb-0 bg-light p-3 rounded-3">
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-muted">Horario Valle (Mañanas):</span>
                             <strong class="text-dark">12,00 € / hora</strong>
@@ -37,8 +37,6 @@
                             <strong class="text-primary">18,00 € / hora</strong>
                         </div>
                     </div>
-
-                    <a href="/pistas" class="btn btn-outline-primary w-100 fw-semibold mt-auto">Reservar Pádel</a>
                 </div>
             </div>
 
@@ -54,7 +52,7 @@
                     <h3 class="h4 fw-bold text-dark mb-2">Pista de Tenis</h3>
                     <p class="text-muted small mb-4">Superficie reglamentaria de resina sintética para un bote de pelota perfecto.</p>
                     
-                    <div class="mb-4 bg-light p-3 rounded-3">
+                    <div class="mb-0 bg-light p-3 rounded-3">
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-muted">Horario Valle (Mañanas):</span>
                             <strong class="text-dark">14,00 € / hora</strong>
@@ -64,8 +62,6 @@
                             <strong class="text-primary">20,00 € / hora</strong>
                         </div>
                     </div>
-
-                    <a href="/pistas" class="btn btn-outline-primary w-100 fw-semibold mt-auto">Reservar Tenis</a>
                 </div>
             </div>
 
@@ -81,7 +77,7 @@
                     <h3 class="h4 fw-bold text-dark mb-2">Fútbol Sala / Indoor</h3>
                     <p class="text-muted small mb-4">Pabellón cubierto con parqué deportivo y gradas para espectadores.</p>
                     
-                    <div class="mb-4 bg-light p-3 rounded-3">
+                    <div class="mb-0 bg-light p-3 rounded-3">
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-muted">Horario Valle (Mañanas):</span>
                             <strong class="text-dark">35,00 € / hora</strong>
@@ -91,8 +87,6 @@
                             <strong class="text-primary">45,00 € / hora</strong>
                         </div>
                     </div>
-
-                    <a href="/pistas" class="btn btn-outline-primary w-100 fw-semibold mt-auto">Reservar Fútbol</a>
                 </div>
             </div>
 

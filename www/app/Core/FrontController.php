@@ -77,11 +77,23 @@ class FrontController {
             $controlador->contacto();
             }, 'get');
 
+            //Ruta para poder procesar el envío del formulario de contacto
+            Route::add('/contacto/enviar', function () {
+            $controlador = new HomeController();
+            $controlador->enviarContacto();
+            }, 'post');
+
             // Ruta para la página de realizar una reserva
             Route::add('/reservar', function () {
             $controlador = new ReservaController();
             $controlador->reservar();
             }, ['get', 'post']);
+
+            //Ruta para poder cancelar una reserva
+            Route::add('/reservas/cancelar', function () {
+            $controlador = new ReservaController();
+            $controlador->cancelarReserva();
+            }, 'get');
 
             //Ruta para la página de gestión de trabajadores
             Route::add('/trabajadores', function () {
@@ -101,9 +113,22 @@ class FrontController {
             $controlador->actualizarTrabajador();
             }, 'post');
 
+            //Ruta para poder mostrar la vista de creación de un nuevo trabajador
             Route::add('/trabajadores/nuevo', function () {
             $controlador = new HomeController();
             $controlador->nuevoTrabajador();
+            }, 'get');
+
+            //Ruta para poder procesar el guardado de un nuevo trabajador
+            Route::add('/trabajadores/guardar', function () {
+            $controlador = new HomeController();
+            $controlador->guardarTrabajador();
+            }, 'post');
+
+            //Ruta para poder eliminar un trabajador
+            Route::add('/trabajadores/eliminar', function () {
+            $controlador = new HomeController();
+            $controlador->eliminarTrabajador();
             }, 'get');
 
             //Ruta para la página de ver proveedores

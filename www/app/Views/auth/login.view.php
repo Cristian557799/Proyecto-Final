@@ -18,7 +18,7 @@
     <header>
         <nav class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/index.php">
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
                     <i class="bi bi-trophy-fill text-warning"></i> 
                     <span>SportBooking</span>
                 </a>

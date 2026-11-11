@@ -8,18 +8,19 @@
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     
-    <!-- Bootstrap Icons (Opcional, muy útil para iconos deportivos y de UI) -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="/assets/css/style.css">
-</>
+</head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- BARRA DE NAVEGACIÓN RESPONSIVE -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/index.php">
+            <!-- Logo que ahora redirige a la página de inicio (Controlador Home) -->
+            <a class="navbar-brand fw-bold" href="/">
                 <i class="bi bi-joystick text-success"></i> SportBooking
             </a>
             
@@ -31,7 +32,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/inicio">Inicio</a>
+                        <!-- Enlace Inicio que redirige a la ruta principal -->
+                        <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/pistas">Ver Pistas</a>

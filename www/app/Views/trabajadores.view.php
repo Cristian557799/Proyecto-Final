@@ -17,14 +17,31 @@
         </div>
     </div>
 
-    <!-- Tarjetas de Estadísticas Rápidas -->
+    <!-- CÁLCULOS DINÁMICOS DE ESTADÍSTICAS -->
+    <?php
+        $totalEmpleados = count($trabajadores ?? []);
+        $activos = 0;
+        $vacaciones = 0;
+
+        if (!empty($trabajadores)) {
+            foreach ($trabajadores as $t) {
+                if (($t['estado'] ?? '') === 'Activo') {
+                    $activos++;
+                } elseif (($t['estado'] ?? '') === 'Vacaciones') {
+                    $vacaciones++;
+                }
+            }
+        }
+    ?>
+
+    <!-- Tarjetas de Estadísticas Rápidas Dinámicas -->
     <div class="row g-4 mb-5">
         <div class="col-md-4">
             <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <p class="text-muted small mb-1">Total Plantilla</p>
-                        <h3 class="fw-bold text-dark mb-0">4 Empleados</h3>
+                        <h3 class="fw-bold text-dark mb-0"><?= $totalEmpleados ?> <?= $totalEmpleados === 1 ? 'Empleado' : 'Empleados' ?></h3>
                     </div>
                     <div class="p-3 bg-primary bg-opacity-10 text-primary rounded-3">
                         <i class="bi bi-person-badge display-6"></i>
@@ -37,7 +54,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <p class="text-muted small mb-1">En Turno Activo</p>
-                        <h3 class="fw-bold text-success mb-0">3 Trabajando</h3>
+                        <h3 class="fw-bold text-success mb-0"><?= $activos ?> <?= $activos === 1 ? 'Trabajando' : 'Trabajando' ?></h3>
                     </div>
                     <div class="p-3 bg-success bg-opacity-10 text-success rounded-3">
                         <i class="bi bi-check-circle display-6"></i>
@@ -50,7 +67,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <p class="text-muted small mb-1">Ausencias / Vacaciones</p>
-                        <h3 class="fw-bold text-warning mb-0">1 Persona</h3>
+                        <h3 class="fw-bold text-warning mb-0"><?= $vacaciones ?> <?= $vacaciones === 1 ? 'Persona' : 'Personas' ?></h3>
                     </div>
                     <div class="p-3 bg-warning bg-opacity-10 text-warning rounded-3">
                         <i class="bi bi-calendar-minus display-6"></i>

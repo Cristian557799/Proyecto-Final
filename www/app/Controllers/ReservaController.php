@@ -107,4 +107,21 @@ class ReservaController extends BaseController {
             $data
         );
     }
+
+    public function cancelarReserva() {
+        if(session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $idReserva = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+        if($idReserva > 0) {
+            $reservaModel = new ReservaModel();
+            $reservaModel->cancelarReserva($idReserva);
+        }
+
+        //Redirigimos de vuelta a la página de Mis Reservas
+        header('Location: /reservas');
+        exit;
+    }
 }

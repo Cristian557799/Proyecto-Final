@@ -10,7 +10,7 @@
             <?php if ($index === count($breadcrumb ?? []) - 1): ?>
                 <li class="breadcrumb-item active"><?= htmlspecialchars($item) ?></li>
             <?php else: ?>
-                <li class="breadcrumb-item"><a href="#"><?= htmlspecialchars($item) ?></a></li>
+                <li class="breadcrumb-item"><a href="/"><?= htmlspecialchars($item) ?></a></li>
             <?php endif; ?>
         <?php endforeach; ?>
     </ol>
@@ -97,9 +97,9 @@
 <!-- Script opcional para manejar la lógica del botón cancelar -->
 <script>
     function confirmarCancelacion(idReserva) {
-        if (confirm("¿Estás seguro de que deseas cancelar la reserva #" + idReserva + "?")) {
-            // Aquí puedes redirigir a una ruta de cancelación si la creas más adelante
-            alert("Acción de cancelar la reserva ID: " + idReserva);
+        if (confirm("¿Estás seguro de que deseas cancelar la reserva?")) {
+            // Redirige a la ruta del controlador encargada de cancelar la reserva
+            window.location.href = '/reservas/cancelar?id=' + idReserva;
         }
     }
 </script>
