@@ -22,7 +22,7 @@
                     <i class="bi bi-trophy-fill text-warning"></i> 
                     <span>SportBooking</span>
                 </a>
-                <a href="/index.php" class="btn btn-outline-light btn-sm">
+                <a href="/" class="btn btn-outline-light btn-sm">
                     <i class="bi bi-arrow-left me-1"></i> Volver al Inicio
                 </a>
             </div>
@@ -43,7 +43,7 @@
                             <i class="bi bi-person-circle display-4"></i>
                         </div>
                         <h2 class="fw-bold text-dark">¡Bienvenido de nuevo!</h2>
-                        <p class="text-muted small">Introduce tus credenciales para acceder a tus reservas.</p>
+                        <p class="text-muted small">Introduce tus datos para acceder a tus reservas.</p>
                     </div>
 
                     <!-- Mensajes de Error o Alertas Flash (si las hay) -->
@@ -55,14 +55,14 @@
                     <?php endif; ?>
 
                     <!-- Formulario -->
-                    <form action="/index.php?controller=auth&action=login" method="POST">
-                        
+                    <form action="/login" method="POST">
+
                         <!-- Campo de Email / Usuario -->
                         <div class="mb-3">
                             <label for="email" class="form-label text-secondary small fw-semibold">Correo Electrónico</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
-                                <input type="email" class="form-control border-start-0 ps-0 bg-light" id="email" name="email" placeholder="tu_correo@ejemplo.com" required autofocus>
+                                <input type="email" class="form-control border-start-0 ps-0 bg-light" id="email" name="email" placeholder="tu_correo@ejemplo.com" required>
                             </div>
                         </div>
 
@@ -101,7 +101,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 border-top border-secondary">
         <div class="container">
-            <p class="small text-muted mb-0">&copy; 2026 SportBooking - Gestión de Pistas Deportivas</p>
+            <p class="small text-muted mb-0">© 2026 SportBooking - Gestión de Pistas Deportivas</p>
         </div>
     </footer>
 

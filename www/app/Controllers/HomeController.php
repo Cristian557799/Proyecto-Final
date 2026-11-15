@@ -91,6 +91,13 @@ class HomeController extends BaseController {
             session_start();
         }
 
+        //Seguridad: Si no está logueado o no es admin
+        if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+            $_SESSION['error'] = 'No tienes permisos para poder acceder a esta sección.';
+            header('Location: /reservar');
+            exit;
+        }
+
         //Instanciamos el modelo para poder obtener los trabajadores de la base de datos
         $trabajadorModel = new TrabajadorModel();
         $trabajadores = $trabajadorModel->getAllTrabajadores();
@@ -235,6 +242,13 @@ class HomeController extends BaseController {
     public function proveedores() {
         if(session_status() == PHP_SESSION_NONE) {
             session_start();
+        }
+
+        //Seguridad: Si no está logueado o no es admin
+        if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+            $_SESSION['error'] = 'No tienes permisos para poder acceder a esta sección.';
+            header('Location: /reservar');
+            exit;
         }
 
         //Instanciamos el modelo para poder obtener los proveedores de la base de datos

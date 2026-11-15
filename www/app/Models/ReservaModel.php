@@ -49,4 +49,13 @@ class ReservaModel extends BaseDBModel {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['id' => $idReserva]);
     }
+
+    /**
+     * Eliminamos una reserva de la base de datos por su ID
+     */
+    public function deleteReserva(int $idReserva) : bool {
+        $sql = "DELETE FROM reservas WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $idReserva]);
+    }
 }

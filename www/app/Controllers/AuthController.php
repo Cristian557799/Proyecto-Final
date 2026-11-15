@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Com\Daw2\Controllers;
 
 use Com\Daw2\Core\BaseController;
+use Com\Daw2\Models\Usuario;
 
 class AuthController extends BaseController {
     /**
@@ -18,36 +19,34 @@ class AuthController extends BaseController {
 
         $error = '';
 
-        //Si el usuario va a enviar el formulario por POST
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
-
+            
             if(empty($email) || empty($password)) {
                 $error = 'Por favor, rellena todos los campos.';
             }else{
-                // TODO: Aquí conectarías con tu modelo de usuarios para validar las credenciales
-                // Ejemplo con un modelo:
-                // $usuarioModel = new UsuarioModel();
-                // $usuario = $usuarioModel->getByEmail($email);
-                
-                // Simulación temporal de validación (Sustituye esto por tu lógica de base de datos)
-                // if ($usuario && password_verify($password, $usuario['password'])) {
+                //Instanciamos el modelo para poder buscar en la base de datos
+                $usuarioModel = new Usuario();
+                $usuario = $usuarioModel->obtenerPorEmail($email);
 
-                //Para pruebas rápidas
-                if($email === 'admin@sportbooking.com' && $password === '123456') {
-                    //Guardamos los datos del usuario en la sesión
+                //Verificamos si el usuario existe y si la contraseña coincide con el hash
+                if($usuario && $password === $usuario['password']) {
+                    //Guardamos los datos en la sesión
                     $_SESSION['usuario'] = [
-                        'id' => 1,
-                        'nombre' => 'Administrador',
-                        'email' => $email
+                        'id' => $usuario['id'],
+                        'nombre' => $usuario['nombre'],
+                        'email' => $usuario['email'],
+                        'rol' => $usuario['rol']
                     ];
 
-                    //Redirigimos a la página principal o al panel
-                    header('Location: /index.php');
+                    $_SESSION['user_nombre'] = $usuario['nombre'];
+
+                    //Redirigimos a la página de inicio
+                    header('Location: /');
                     exit;
                 }else{
-                    $error = 'Credenciales incorrectas. Comprueba tu email y contraseña.';
+                    $error = 'Credenciales incorrectas. Comprueba tu email y contraseña';
                 }
             }
         }
@@ -86,7 +85,7 @@ class AuthController extends BaseController {
         session_destroy();
 
         //Redirigimos al inicio
-        header('Location: /index.php');
+        header('Location: /');
         exit;
     }
 
@@ -104,23 +103,22 @@ class AuthController extends BaseController {
             $nombre = trim($_POST['nombre'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
-            $password_confirm = $_POST['password_confirm'] ?? '';
-
-            if (empty($nombre) || empty($email) || empty($password) || empty($password_confirm)) {
+            $telefono = trim($_POST['telefono'] ?? '');
+            
+            if(empty($nombre) || empty($email) || empty($password)) {
                 $error = 'Por favor, rellena todos los campos.';
-            } elseif ($password !== $password_confirm) {
-                $error = 'Las contraseñas no coinciden.';
-            } else {
-                // TODO: Conecta aquí con tu modelo para guardar el usuario en la BD de forma segura
-                // $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-                // $usuarioModel = new UsuarioModel();
-                // $usuarioModel->registrar($nombre, $email, $passwordHash);
+            }else{
+                //Instanciamos el modelo para poder buscar en la base de datos
+                $usuarioModel = new Usuario();
+                //Usamos el método crear de la clase Usuario
+                $resultado = $usuarioModel->crear($nombre, $email, $password, $telefono, 'cliente');
 
-                // Mensaje flash de éxito y redirección al login
-                $_SESSION['flash_message'] = '¡Cuenta creada correctamente! Ya puedes iniciar sesión.';
-                $_SESSION['flash_type'] = 'success';
-                header('Location: /login');
-                exit;
+                if($resultado) {
+                    header('Location: /login');
+                    exit;
+                }else{
+                    $error = 'Error al registrar al usuario en la base de datos';
+                }
             }
         }
 

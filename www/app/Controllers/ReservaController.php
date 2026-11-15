@@ -124,4 +124,24 @@ class ReservaController extends BaseController {
         header('Location: /reservas');
         exit;
     }
+
+    /**
+     * Eliminamos permanentemente una reserva de la base de datos
+     */
+    public function eliminarReserva() {
+        if(session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $idReserva = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+        if($idReserva > 0) {
+            $reservaModel = new ReservaModel();
+            $reservaModel->deleteReserva($idReserva);
+        }
+
+        //Redirigimos de vuelta a la página de Mis Reservas
+        header('Location: /reservas');
+        exit;
+    }
 }

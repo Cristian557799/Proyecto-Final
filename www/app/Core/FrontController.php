@@ -16,15 +16,22 @@ class FrontController {
     public static function main(): void
     {
         try {
-            session_start();
+            if(session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $baseFolder = $_ENV['host.folder'];
 
-            // SIMULACIÓN DE ACCESO: Forzamos que la aplicación crea que hay sesión iniciada
-            // para que cargue todas las rutas directamente sin pasar por el login.
-            $_SESSION['usuario'] = [
-                'id' => 1,
-                'nombre' => 'Administrador Temporal'
-            ];
+            // Asistente para rutas exclusivas de administradores
+            $adminRoute = function(string $route, callable $callback, $method = 'get') {
+                Route::add($route, function() use ($callback) {
+                    if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+                        // Si un cliente intenta entrar, lo mandamos a la reserva rápida
+                        header('Location: /reservar');
+                        exit;
+                    }
+                    $callback();
+                }, $method);
+            };
 
             // ---------------- RUTA DE INICIO ----------------
             Route::add('/', function () {
@@ -95,44 +102,50 @@ class FrontController {
             $controlador->cancelarReserva();
             }, 'get');
 
+            //Ruta para poder eliminar permanentemente una reserva del historial
+            Route::add('/reservas/eliminar', function () {
+            $controlador = new ReservaController();
+            $controlador->eliminarReserva();
+            }, 'get');
+
             //Ruta para la página de gestión de trabajadores
-            Route::add('/trabajadores', function () {
+            $adminRoute('/trabajadores', function () {
             $controlador = new HomeController();
             $controlador->trabajadores();
             }, 'get');
 
             //Ruta para poder mostrar la vista de edición de un trabajador
-            Route::add('/trabajadores/editar', function () {
+            $adminRoute('/trabajadores/editar', function () {
             $controlador = new HomeController();
             $controlador->editarTrabajador();
             }, 'get');
 
             //Ruta para poder procesar la actualización de un trabajador
-            Route::add('/trabajadores/actualizar', function () {
+            $adminRoute('/trabajadores/actualizar', function () {
             $controlador = new HomeController();
             $controlador->actualizarTrabajador();
             }, 'post');
 
             //Ruta para poder mostrar la vista de creación de un nuevo trabajador
-            Route::add('/trabajadores/nuevo', function () {
+            $adminRoute('/trabajadores/nuevo', function () {
             $controlador = new HomeController();
             $controlador->nuevoTrabajador();
             }, 'get');
 
             //Ruta para poder procesar el guardado de un nuevo trabajador
-            Route::add('/trabajadores/guardar', function () {
+            $adminRoute('/trabajadores/guardar', function () {
             $controlador = new HomeController();
             $controlador->guardarTrabajador();
             }, 'post');
 
             //Ruta para poder eliminar un trabajador
-            Route::add('/trabajadores/eliminar', function () {
+            $adminRoute('/trabajadores/eliminar', function () {
             $controlador = new HomeController();
             $controlador->eliminarTrabajador();
             }, 'get');
 
             //Ruta para la página de ver proveedores
-            Route::add('/proveedores', function () {
+            $adminRoute('/proveedores', function () {
             $controlador = new HomeController();
             $controlador->proveedores();
             }, 'get');

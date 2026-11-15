@@ -18,21 +18,19 @@
                     $nombrePista = strtolower($pista['nombre'] ?? '');
                     
                     if (str_contains($nombrePista, 'pádel') || str_contains($nombrePista, 'padel')) {
-                        // Imagen clara de una pista de pádel con cristales
                         $imagenPista = 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=600&q=80';
                     } elseif (str_contains($nombrePista, 'tenis')) {
-                        // Imagen de pista de tenis con red
                         $imagenPista = 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=600&q=80';
                     } elseif (str_contains($nombrePista, 'fútbol') || str_contains($nombrePista, 'futbol') || str_contains($nombrePista, 'campo')) {
-                        // Imagen de campo de fútbol de césped artificial
                         $imagenPista = 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80';
                     } elseif (str_contains($nombrePista, 'baloncesto') || str_contains($nombrePista, 'basket') || str_contains($nombrePista, 'polideportiva')) {
-                        // Imagen de cancha de baloncesto cubierta
                         $imagenPista = 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80';
                     } else {
-                        // Imagen por defecto genérica deportiva
                         $imagenPista = $pista['imagen'] ?? 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80';
                     }
+
+                    // Verificamos si está reservada
+                    $estaReservada = $pista['reservada'] ?? false;
                 ?>
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
@@ -40,9 +38,16 @@
                             <img src="<?= $imagenPista ?>" 
                                  class="card-img-top object-fit-cover" style="height: 220px;" alt="<?= htmlspecialchars($pista['nombre'] ?? 'Pista deportiva') ?>">
                             
-                            <span class="position-absolute top-0 end-0 m-3 badge bg-success shadow-sm">
-                                Disponible
-                            </span>
+                            <!-- Badge dinámico según el estado de la reserva -->
+                            <?php if ($estaReservada): ?>
+                                <span class="position-absolute top-0 end-0 m-3 badge bg-danger shadow-sm px-3 py-2">
+                                    <i class="bi bi-lock-fill me-1"></i> Reservada
+                                </span>
+                            <?php else: ?>
+                                <span class="position-absolute top-0 end-0 m-3 badge bg-success shadow-sm px-3 py-2">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Disponible
+                                </span>
+                            <?php endif; ?>
                         </div>
 
                         <div class="card-body d-flex flex-column p-4">
@@ -52,10 +57,16 @@
                             <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top">
                                 <span class="fw-bold text-success fs-5"><?= number_format((float)($pista['precio_hora'] ?? 15), 2) ?> € / h</span>
                                 
-                                <!-- Enlace con el ID de la pista en el parámetro GET -->
-                                <a href="/reservar?pista=<?= $pista['id'] ?? $pista['id_pista'] ?>" class="btn btn-outline-primary btn-sm px-3 rounded-pill fw-semibold">
-                                    <i class="bi bi-calendar-check me-1"></i> Reservar
-                                </a>
+                                <!-- Botón condicional de reserva -->
+                                <?php if ($estaReservada): ?>
+                                    <button class="btn btn-secondary btn-sm px-3 rounded-pill fw-semibold" disabled>
+                                        No disponible
+                                    </button>
+                                <?php else: ?>
+                                    <a href="/reservar?pista=<?= $pista['id'] ?? $pista['id_pista'] ?>" class="btn btn-outline-primary btn-sm px-3 rounded-pill fw-semibold">
+                                        <i class="bi bi-calendar-check me-1"></i> Reservar
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

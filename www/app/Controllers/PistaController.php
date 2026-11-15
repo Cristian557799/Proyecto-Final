@@ -12,6 +12,14 @@ class PistaController extends BaseController {
         $pistaModel = new PistaModel();
         $instalaciones = $pistaModel->getAllPistas();
 
+        //Comprobamos la disponibilidad de cada pista en tiempo real
+        foreach($instalaciones as &$pista) {
+            $idPista = $pista['id'] ?? $pista['id_pista'] ?? 0;
+            //Guardamos un booleano o estado en el array de pistas
+            $pista['reservada'] = $pistaModel->estaReservada($idPista);
+        }
+        unset($pista);
+
         $data = array(
             'titulo' => 'Instalaciones Deportivas - SportBooking',
             'breadcrumb' => ['Inicio', 'Instalaciones'],

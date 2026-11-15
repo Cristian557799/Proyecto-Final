@@ -70,13 +70,19 @@
                                     
                                     <!-- Acciones -->
                                     <td class="text-center">
-                                        <?php if ($estado === 'confirmada'): ?>
-                                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmarCancelacion(<?= $reserva['id'] ?>)">
-                                                Cancelar
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <!-- Si está confirmada, mostramos botón de Cancelar -->
+                                            <?php if ($estado === 'confirmada'): ?>
+                                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmarCancelacion(<?= $reserva['id'] ?>)" title="Cancelar reserva">
+                                                    Cancelar
+                                                </button>
+                                            <?php endif; ?>
+
+                                            <!-- Botón de eliminar permanente visible para cualquier reserva -->
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmarEliminacion(<?= $reserva['id'] ?>)" title="Eliminar del historial">
+                                                <i class="bi bi-trash-fill"></i>
                                             </button>
-                                        <?php else: ?>
-                                            <span class="text-muted small">Sin acciones</span>
-                                        <?php endif; ?>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -94,12 +100,17 @@
     </div>
 </div>
 
-<!-- Script opcional para manejar la lógica del botón cancelar -->
+<!-- Script para manejar la lógica de cancelar y eliminar -->
 <script>
     function confirmarCancelacion(idReserva) {
         if (confirm("¿Estás seguro de que deseas cancelar la reserva?")) {
-            // Redirige a la ruta del controlador encargada de cancelar la reserva
             window.location.href = '/reservas/cancelar?id=' + idReserva;
+        }
+    }
+
+    function confirmarEliminacion(idReserva) {
+        if (confirm("¿Estás seguro de que deseas eliminar permanentemente esta reserva del historial?")) {
+            window.location.href = '/reservas/eliminar?id=' + idReserva;
         }
     }
 </script>

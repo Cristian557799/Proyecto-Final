@@ -31,26 +31,49 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Enlaces comunes para todo el mundo -->
                     <li class="nav-item">
-                        <!-- Enlace Inicio que redirige a la ruta principal -->
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/pistas">Ver Pistas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/reservas">Mis Reservas</a>
-                    </li>
+
+                    <!-- Enlaces SOLO para usuarios logueados (Clientes o Admins) -->
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reservas">Mis Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reservar">Hacer Reserva</a>
+                        </li>
+
+                    <?php endif; ?>
                 </ul>
                 
-                <!-- Opciones de Usuario / Autenticación -->
+                <!-- Opciones de Usuario / Autenticación (Derecha) -->
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm me-2" href="/login">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-success btn-sm" href="/registro">Registrarse</a>
-                    </li>
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <?php 
+                            $nombreMostrado = $_SESSION['usuario']['nombre'] ?? 'Usuario';
+                        ?>
+                        <li class="nav-item d-flex align-items-center me-3">
+                            <span class="text-white fw-semibold">
+                                <i class="bi bi-person-fill text-warning me-1"></i> Hola, <?= htmlspecialchars($nombreMostrado) ?>
+                                <small class="badge bg-secondary ms-1"><?= ucfirst($_SESSION['usuario']['rol']) ?></small>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-danger btn-sm" href="/logout">Cerrar Sesión</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm me-2" href="/login">Iniciar Sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-success btn-sm" href="/registro">Registrarse</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
